@@ -8,7 +8,6 @@ const selector = [
 
 let showBookmarks = async () => {
   let match = selector.find(s => location.href.match(s.url));
-  //console.log(match);
   let sel = [];
   if (match){
     let selec = match.sel.split(',').map(n => n.trim() + '[href*="/artworks/"]:not(.'+added+')').join(',');
@@ -36,7 +35,6 @@ let showBookmarks = async () => {
       let message = doc.getElementsByClassName('bookmark-count')[0].innerText;
       return message;
     });
-    //console.log(bookmarks);
     let ele = '<p class='+addBookmarks+'>'+bookmarks+'</p>';
     el.insertAdjacentHTML('beforeend',ele);
   }
@@ -45,10 +43,8 @@ let showBookmarks = async () => {
 let init = async () => {
   let observer = new MutationObserver(()=>{
     showBookmarks();
-    //mutations.forEach(mutation=>{
-    //  mutation.addedNodes.forEach(node=>showBookmarks(node));
-    //});
   });
   observer.observe(document.body,{childList: true, subtree: true});
+  // ここでcss作成したい
 };
 init();
