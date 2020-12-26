@@ -41,11 +41,10 @@ let showBookmarks = async () => {
 };
 
 let init = async () => {
-  let observer = new MutationObserver(()=>{
+  new MutationObserver(()=>{
     showBookmarks();
-  });
-  observer.observe(document.body,{childList: true, subtree: true});
-  // ここでcss作成したい
+  }).observe(document.body,{childList: true, subtree: true});
+
   let css = '<style type="text/css">.'+addBookmarks+'{'
     + 'position: absolute; left: 0px; bottom: 0px; z-index: 1; '
     + 'display: flex; flex: 0 0 auto; '
