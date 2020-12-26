@@ -31,8 +31,8 @@ let showBookmarks = async () => {
     }).then(function(response){
       return response.text();
     }).then(function(data){
-      let doc = new DOMParser().parseFromString(data,'text/html');
-      let message = doc.getElementsByClassName('bookmark-count')[0].innerText;
+      let dom = new DOMParser().parseFromString(data,'text/html');
+      let message = dom.getElementsByClassName('bookmark-count')[0].innerText;
       return message;
     });
     let ele = '<p class='+addBookmarks+'>'+bookmarks+'</p>';
