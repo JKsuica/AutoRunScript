@@ -1,7 +1,7 @@
 // 参考：https://greasyfork.org/ja/scripts/392352-pixiv-show-resolution/code
 const bookmarkURL = '/bookmark_detail.php?illust_id=';
 const addBookmarks = 'bookmark-tip';
-const added = 'added';
+const added = 'addbookmarks';
 const selector = [
   {url:'/ranking.php', sel:'.ranking-image-item>a'}
 ];
@@ -46,5 +46,14 @@ let init = async () => {
   });
   observer.observe(document.body,{childList: true, subtree: true});
   // ここでcss作成したい
+  let css = '<style type="text/css">.'+addBookmarks+'{'
+    + 'position: absolute; left: 0px; bottom: 0px; z-index: 1; '
+    + 'display: flex; flex: 0 0 auto; '
+    + 'height: 20px; min-width: 20px; padding: 0px 6px; '
+    + 'border-radius: 10px; line-height: 10px; box-sizing: border-box; '
+    + 'color: rgb(255,255,255); background: rgba(0,0,0,0.32); '
+    + 'font-size: 16px; font-weight: bold; align-items: center; '
+    + '}</style>';
+  document.head.insertAdjacentHTML('beforeend', css);
 };
 init();
