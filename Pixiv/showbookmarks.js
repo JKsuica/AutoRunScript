@@ -8,15 +8,15 @@ const selector = [
 
 let showBookmarks = async () => {
   let match = selector.find(s => location.href.match(s.url));
-  let sel = [];
+  let list = [];
   if (match){
-    let selec = match.sel.split(',').map(n => n.trim() + '[href*="/artworks/"]:not(.'+added+')').join(',');
-    sel = document.querySelectorAll(selec);
+    let sel = match.sel.split(',').map(n => n.trim() + '[href*="/artworks/"]:not(.'+added+')').join(',');
+    list = document.querySelectorAll(sel);
   }
-  if(sel.length<=0)return;
+  if(list.length<=0)return;
 
   // 要素追加時にまた呼び出されてしまうから、先にチェックだけ付けておく
-  sel.forEach(el => {
+  list.forEach(el => {
     el.classList.add(added);
   });
 
@@ -24,7 +24,7 @@ let showBookmarks = async () => {
   // ブクマ数はまとめてできるページとか分からないから1つずつリクエストする。
   // タイトル、ページ数、サイズ、タグ、illustid、userid、ユーザ名等
   // awaitは非同期関数内じゃないと怒られる。foreachは非同期じゃないらしい
-  for await (let el of sel){
+  for await (let el of list){
     let id = el.href.replace(/.*(\/artworks\/|illust_id=)(\d+)(\D.*)?/, '$2');
     let bookmarks = await fetch(bookmarkURL+id,{
       credentials:'same-origin'
