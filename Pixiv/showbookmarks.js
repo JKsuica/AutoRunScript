@@ -2,8 +2,15 @@
 const bookmarkURL = '/bookmark_detail.php?illust_id=';
 const addBookmarks = 'bookmark-tip';
 const added = 'addbookmarks';
+// ほとんどのページで'.rp5asc-16'で対応できるけど一応ページ毎に分けておく
 const selector = [
-  {url:'/ranking.php', sel:'.ranking-image-item>a'}
+  {url: 'pixiv.net/($|cate_r18|manga)', sel: 'a.rp5asc-16'},
+  {url: 'pixiv.net/artworks', sel: 'a.rp5asc-16'},
+  {url: 'pixiv.net/tags', sel: 'a.rp5asc-16'},
+  {url: 'pixiv.net/users', sel: 'a.rp5asc-16'},
+  {url: 'pixiv.net/ranking', sel: '.ranking-image-item>a'},
+  {url: 'pixiv.net/bookmark_new_illust', sel: 'figure>div>a'},
+  {url: 'pixiv.net/discovery', sel: 'figure>div>a'}
 ];
 
 let showBookmarks = async () => {
@@ -45,7 +52,7 @@ let init = async () => {
     showBookmarks();
   }).observe(document.body,{childList: true, subtree: true});
 
-  let css = '<style type="text/css">.'+addBookmarks+'{'
+  const css = '<style type="text/css">.'+addBookmarks+'{'
     + 'position: absolute; left: 0px; bottom: 0px; z-index: 1; '
     + 'display: flex; flex: 0 0 auto; '
     + 'height: 20px; min-width: 20px; padding: 0px 6px; '
